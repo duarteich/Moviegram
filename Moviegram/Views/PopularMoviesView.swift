@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PopularMoviesView: View {
     @StateObject var viewModel = MovieListViewModel()
+    @State private var isGridView = false
     
     var body: some View {
         VStack {
@@ -17,12 +18,32 @@ struct PopularMoviesView: View {
             } else if let errorMessage = viewModel.errorMessage {
                 Text(errorMessage)
             } else {
-                List(viewModel.popularMovies) { movie in
-                    NavigationLink(destination: MovieDetailView()) {
-                        MovieRow(movie: movie)
+                NavigationStack {
+                    Group {
+                        if isGridView {
+                            MovieGridView(movies: viewModel.popularMovies)
+                        } else {
+                            MovieListView(movies: viewModel.popularMovies)
+                        }
+                    }
+                    .navigationTitle(Constants.UI.popularMoviesTitle)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            HStack {
+                                Button(action: {
+                                    isGridView = false
+                                }) {
+                                    Image(systemName: "list.bullet")
+                                }
+                                Button(action: {
+                                    isGridView = true
+                                }) {
+                                    Image(systemName: "square.grid.2x2")
+                                }
+                            }
+                        }
                     }
                 }
-                .listStyle(PlainListStyle())
             }
         }
         .onAppear {
@@ -33,6 +54,8 @@ struct PopularMoviesView: View {
     }
 }
 
-#Preview {
-    PopularMoviesView()
+struct PopularMoviesView_Previews: PreviewProvider {
+    static var previews: some View {
+        PopularMoviesView()
+    }
 }

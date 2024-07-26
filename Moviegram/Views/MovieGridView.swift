@@ -1,5 +1,5 @@
 //
-//  MovieListView.swift
+//  MovieGridView.swift
 //  Moviegram
 //
 //  Created by Christyan Duarte on 26/07/24.
@@ -7,20 +7,29 @@
 
 import SwiftUI
 
-struct MovieListView: View {
+struct MovieGridView: View {
     let movies: [Movie]
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
-        List(movies) { movie in
-            NavigationLink(destination: MovieDetailView()) {
-                MovieRow(movie: movie)
+        ScrollView {
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(movies) { movie in
+                    NavigationLink(destination: MovieDetailView()) {
+                        MovieGridItem(movie: movie)
+                    }
+                }
             }
+            .padding()
         }
     }
 }
 
 #Preview {
-    MovieListView(
+    MovieGridView(
         movies: [
             Movie(
                 id: 519182,

@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct MoviegramApp: App {
+    @StateObject private var sessionManager = SessionManager()
+    
     var body: some Scene {
         WindowGroup {
-            MovieListView()
+            if sessionManager.configuration != nil {
+                ContentView()
+                    .environmentObject(sessionManager)
+            } else {
+                LoadingView()
+            }
         }
     }
 }
