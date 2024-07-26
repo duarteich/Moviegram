@@ -11,7 +11,7 @@ import SwiftUI
 struct MoviegramApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MovieListView()
         }
     }
 }

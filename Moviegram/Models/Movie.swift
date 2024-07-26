@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct MovieResponse: Codable {
+    let page: Int
+    let results: [Movie]
+}
+
 struct Movie: Identifiable, Codable {
     let id: Int
     let title: String
@@ -16,4 +21,6 @@ struct Movie: Identifiable, Codable {
     let popularity: Double
     let releaseDate: String
     let voteAverage: Double
+    
+    
 }

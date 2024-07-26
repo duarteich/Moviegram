@@ -9,7 +9,20 @@ import SwiftUI
 
 struct MovieListView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            TabView {
+                PopularMoviesView()
+                    .tabItem {
+                        Label("Popular", systemImage: "star.fill")
+                    }
+                
+                NowPlayingMoviesView()
+                    .tabItem {
+                        Label("Now Playing", systemImage: "play.circle.fill")
+                    }
+            }
+            .navigationTitle(Constants.UI.movieListTitle)
+        }
     }
 }
 
