@@ -32,6 +32,7 @@
 		8D11E1F92C536EE900A3C7BD /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11E1F82C536EE900A3C7BD /* SessionManager.swift */; };
 		8D11E1FB2C53D57300A3C7BD /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11E1FA2C53D57300A3C7BD /* MovieListView.swift */; };
 		8D11E1FD2C53D60500A3C7BD /* MovieGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11E1FC2C53D60500A3C7BD /* MovieGridView.swift */; };
+		8D11E1FF2C53E0F400A3C7BD /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D11E1FE2C53E0F400A3C7BD /* MovieDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		8D11E1F82C536EE900A3C7BD /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		8D11E1FA2C53D57300A3C7BD /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		8D11E1FC2C53D60500A3C7BD /* MovieGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieGridView.swift; sourceTree = "<group>"; };
+		8D11E1FE2C53E0F400A3C7BD /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 			children = (
 				8D11E1D52C517C4B00A3C7BD /* Movie.swift */,
 				8D11E1F52C5364C000A3C7BD /* Configuration.swift */,
+				8D11E1FE2C53E0F400A3C7BD /* MovieDetails.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				8D11E1ED2C52E43400A3C7BD /* NowPlayingMoviesView.swift in Sources */,
 				8D11E1E12C51972C00A3C7BD /* MovieRow.swift in Sources */,
 				8D11E1A52C50CEDA00A3C7BD /* MoviegramApp.swift in Sources */,
+				8D11E1FF2C53E0F400A3C7BD /* MovieDetails.swift in Sources */,
 				8D11E1D62C517C4B00A3C7BD /* Movie.swift in Sources */,
 				8D11E1DA2C518D4100A3C7BD /* MovieRepository.swift in Sources */,
 				8D11E1EF2C535EAB00A3C7BD /* MovieGridItem.swift in Sources */,

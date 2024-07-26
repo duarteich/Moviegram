@@ -7,4 +7,27 @@
 
 import Foundation
 
-class MovieDetailViewModel: ObservableObject {}
+@MainActor
+class MovieDetailViewModel: ObservableObject {
+    @Published var movieDetails: MovieDetails?
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+
+    private let movieRepository: MovieRepositoryProtocol
+    
+    init(movieRepository: MovieRepositoryProtocol = MovieRepository()) {
+        self.movieRepository = movieRepository
+    }
+    
+    func fetchMovieDetails(movieId: Int) {
+        isLoading = true
+        Task {
+            do {
+                self.movieDetails = try await movieRepository.fetchMovieDetails(movieId: movieId)
+            } catch {
+                self.errorMessage = error.localizedDescription
+            }
+            self.isLoading = false
+        }
+    }
+}

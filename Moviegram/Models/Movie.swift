@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MovieResponse: Codable {
+struct MoviesResponse: Codable {
     let page: Int
     let results: [Movie]
 }
@@ -16,11 +16,8 @@ struct Movie: Identifiable, Codable {
     let id: Int
     let title: String
     let posterPath: String
-    let genreIds: [Int]
     let overview: String
     let popularity: Double
     let releaseDate: String
     let voteAverage: Double
-    
-    
 }
