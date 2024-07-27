@@ -8,8 +8,8 @@
 import Foundation
 
 protocol MovieRepositoryProtocol {
-    func fetchPopularMovies() async throws -> MoviesResponse
-    func fetchNowPlayingMovies() async throws -> MoviesResponse
+    func fetchPopularMovies(page: Int) async throws -> MoviesResponse
+    func fetchNowPlayingMovies(page: Int) async throws -> MoviesResponse
     func fetchMovieDetails(movieId: Int) async throws -> MovieDetails
 }
 
@@ -21,14 +21,16 @@ class MovieRepository: MovieRepositoryProtocol {
         self.apiClient = apiClient
     }
     
-    func fetchPopularMovies() async throws -> MoviesResponse {
+    func fetchPopularMovies(page: Int) async throws -> MoviesResponse {
         let endpoint = "\(baseURL)\(Constants.Endpoints.popularMovies)"
-        return try await apiClient.fetch(endpoint: endpoint)
+        let parameters = ["page": "\(page)"]
+        return try await apiClient.fetch(endpoint: endpoint, parameters: parameters)
     }
     
-    func fetchNowPlayingMovies() async throws -> MoviesResponse {
+    func fetchNowPlayingMovies(page: Int) async throws -> MoviesResponse {
         let endpoint = "\(baseURL)\(Constants.Endpoints.nowPlayingMovies)"
-        return try await apiClient.fetch(endpoint: endpoint)
+        let parameters = ["page": "\(page)"]
+        return try await apiClient.fetch(endpoint: endpoint, parameters: parameters)
     }
     
     func fetchMovieDetails(movieId: Int) async throws -> MovieDetails {

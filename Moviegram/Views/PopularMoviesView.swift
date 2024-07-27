@@ -19,11 +19,15 @@ struct PopularMoviesView: View {
                 Text(errorMessage)
             } else {
                 NavigationStack {
-                    Group {
+                    VStack {
                         if isGridView {
-                            MovieGridView(movies: viewModel.popularMovies)
+                            MovieGridView(movies: viewModel.popularMovies, isFinished: $viewModel.isPopularMoviesFinished) {
+                                viewModel.fetchPopularMovies()
+                            }
                         } else {
-                            MovieListView(movies: viewModel.popularMovies)
+                            MovieListView(movies: viewModel.popularMovies, isFinished: $viewModel.isPopularMoviesFinished) {
+                                viewModel.fetchPopularMovies()
+                            }
                         }
                     }
                     .navigationTitle(Constants.UI.popularMoviesTitle)
@@ -44,11 +48,6 @@ struct PopularMoviesView: View {
                         }
                     }
                 }
-            }
-        }
-        .task {
-            if viewModel.popularMovies.isEmpty {
-                await viewModel.fetchPopularMovies()
             }
         }
     }

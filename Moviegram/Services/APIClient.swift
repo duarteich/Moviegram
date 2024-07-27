@@ -10,11 +10,20 @@ import Foundation
 class APIClient {
     static let shared = APIClient()
     
-    func fetch<T: Decodable>(endpoint: String) async throws -> T {
-        guard let url = URL(string: endpoint) else {
+    func fetch<T: Decodable>(endpoint: String, parameters: [String: String]? = nil) async throws -> T {
+        guard let urlComponents = URLComponents(string: endpoint) else {
             throw URLError(.badURL)
         }
         
+        var queryItems = [URLQueryItem]()
+        
+        if let parameters = parameters {
+            for (key, value) in parameters {
+                queryItems.append(URLQueryItem(name: key, value: value))
+            }
+        }
+        
+        let url = urlComponents.url!
         var request = URLRequest(url: url)
         request.allHTTPHeaderFields = [
           "accept": "application/json",

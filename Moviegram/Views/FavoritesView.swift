@@ -10,7 +10,12 @@ import SwiftUI
 struct FavoritesView: View {
     @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @State private var isGridView = false
-
+    
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -21,9 +26,24 @@ struct FavoritesView: View {
                     NavigationStack {
                         Group {
                             if isGridView {
-                                MovieGridView(movies: favoriteMoviesManager.favoriteMovies)
+                                ScrollView {
+                                    LazyVGrid(columns: columns, spacing: 16) {
+                                        ForEach(favoriteMoviesManager.favoriteMovies, id: \.id) { movie in
+                                            NavigationLink(destination: MovieDetailView(movie: movie)) {
+                                                MovieGridItem(movie: movie)
+                                            }
+                                        }
+                                    }
+                                    .padding()
+                                }
                             } else {
-                                MovieListView(movies: favoriteMoviesManager.favoriteMovies)
+                                List {
+                                    ForEach(favoriteMoviesManager.favoriteMovies) { movie in
+                                        NavigationLink(destination: MovieDetailView(movie: movie)) {
+                                            MovieRow(movie: movie)
+                                        }
+                                    }
+                                }
                             }
                         }
                         .toolbar {

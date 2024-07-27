@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MovieGridView: View {
     let movies: [Movie]
+    @Binding var isFinished: Bool
+    var loadMoreContent: () -> Void
+    
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -17,10 +20,14 @@ struct MovieGridView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(movies) { movie in
+                ForEach(movies, id: \.id) { movie in
                     NavigationLink(destination: MovieDetailView(movie: movie)) {
                         MovieGridItem(movie: movie)
                     }
+                }
+                if !isFinished {
+                    LoadingView()
+                        .onAppear(perform: loadMoreContent)
                 }
             }
             .padding()
@@ -40,6 +47,8 @@ struct MovieGridView: View {
                 releaseDate: "2024-06-20",
                 voteAverage: 7.241
             )
-        ]
+        ],
+        isFinished: .constant(true),
+        loadMoreContent: {}
     )
 }

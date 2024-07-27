@@ -9,11 +9,19 @@ import SwiftUI
 
 struct MovieListView: View {
     let movies: [Movie]
+    @Binding var isFinished: Bool
+    var loadMoreContent: () -> Void
     
     var body: some View {
-        List(movies) { movie in
-            NavigationLink(destination: MovieDetailView(movie: movie)) {
-                MovieRow(movie: movie)
+        List {
+            ForEach(movies, id: \.id) { movie in
+                NavigationLink(destination: MovieDetailView(movie: movie)) {
+                    MovieRow(movie: movie)
+                }
+            }
+            if !isFinished {
+                LoadingView()
+                    .onAppear(perform: loadMoreContent)
             }
         }
     }
@@ -31,6 +39,8 @@ struct MovieListView: View {
                 releaseDate: "2024-06-20",
                 voteAverage: 7.241
             )
-        ]
+        ],
+        isFinished: .constant(true),
+        loadMoreContent: {}
     )
 }

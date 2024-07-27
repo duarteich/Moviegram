@@ -10,6 +10,7 @@ import Foundation
 struct MoviesResponse: Codable {
     let page: Int
     let results: [Movie]
+    let totalPages: Int
 }
 
 struct Movie: Identifiable, Codable {

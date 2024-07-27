@@ -21,9 +21,13 @@ struct NowPlayingMoviesView: View {
                 NavigationStack {
                     Group {
                         if isGridView {
-                            MovieGridView(movies: viewModel.nowPlayingMovies)
+                            MovieGridView(movies: viewModel.nowPlayingMovies, isFinished: $viewModel.isNowPlayingMoviewFinished) {
+                                viewModel.fetchNowPlayingMovies()
+                            }
                         } else {
-                            MovieListView(movies: viewModel.nowPlayingMovies)
+                            MovieListView(movies: viewModel.nowPlayingMovies, isFinished: $viewModel.isNowPlayingMoviewFinished) {
+                                viewModel.fetchNowPlayingMovies()
+                            }
                         }
                     }
                     .navigationTitle(Constants.UI.nowPlayingMoviesTitle)
@@ -48,7 +52,7 @@ struct NowPlayingMoviesView: View {
         }
         .task {
             if viewModel.nowPlayingMovies.isEmpty {
-                await viewModel.fetchNowPlayingMovies()
+                viewModel.fetchNowPlayingMovies()
             }
         }
     }
