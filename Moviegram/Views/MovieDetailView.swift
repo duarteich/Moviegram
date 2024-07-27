@@ -10,8 +10,9 @@ import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
     @EnvironmentObject var sessionManager: SessionManager
+    @EnvironmentObject var favoriteMoviesManager: FavoriteMoviesManager
     @StateObject var viewModel = MovieDetailViewModel()
-    let movieId: Int
+    let movie: Movie
     
     var body: some View {
         Group {
@@ -74,16 +75,27 @@ struct MovieDetailView: View {
                         }
                     }
                     .padding()
-                    .navigationTitle(viewModel.movieDetails?.title ?? "")
+                    .navigationTitle(movieDetails.title)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button(action: {
+                                viewModel.toggleFavorite()
+                                favoriteMoviesManager.toggleFavorite(movie: movie)
+                            }) {
+                                Image(systemName: movieDetails.isFavorite ? "heart.fill" : "heart")
+                            }
+                        }
+                    }
                 }
             } else {
                 Text("No Details available.")
                     .padding()
             }
         }
-        .onAppear {
+        .task {
             if viewModel.movieDetails == nil {
-                viewModel.fetchMovieDetails(movieId: movieId)
+                await viewModel.fetchMovieDetails(movieId: movie.id)
+                viewModel.updateFavorite(with: favoriteMoviesManager)
             }
         }
     }
@@ -100,5 +112,16 @@ struct MovieDetailView: View {
 }
 
 #Preview {
-    MovieDetailView(movieId: 519182)
+    MovieDetailView(
+        movie: Movie(
+            id: 519182,
+            title: "Despicable Me 4",
+            posterPath: "/3w84hCFJATpiCO5g8hpdWVPBbmq.jpg",
+            overview: "Gru and Lucy and their girls — Margo, Edith and Agnes — welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Meanwhile, Gru faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.",
+            popularity: 3483.085,
+            releaseDate: "2024-06-20",
+            voteAverage: 7.241
+        )
+    )
+        .environmentObject(SessionManager())
 }

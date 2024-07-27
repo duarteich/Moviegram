@@ -53,6 +53,7 @@ struct MovieGridItem: View {
             voteAverage: 7.241
         )
     )
+    .environmentObject(SessionManager())
     .previewLayout(.sizeThatFits)
     .padding()
 }

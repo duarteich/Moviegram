@@ -46,9 +46,9 @@ struct PopularMoviesView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             if viewModel.popularMovies.isEmpty {
-                viewModel.fetchPopularMovies()
+                await viewModel.fetchPopularMovies()
             }
         }
     }

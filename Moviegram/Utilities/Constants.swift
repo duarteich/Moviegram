@@ -21,7 +21,8 @@ struct Constants {
     }
     
     struct UI {
-        static let popularMoviesTitle = "Popular Movies"
-        static let nowPlayingMoviesTitle = "Now Playing Movies"
+        static let popularMoviesTitle = "Popular"
+        static let nowPlayingMoviesTitle = "Now Playing"
+        static let favoritesTitle = "Favorites"
     }
 }

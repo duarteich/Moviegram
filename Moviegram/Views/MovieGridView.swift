@@ -18,7 +18,7 @@ struct MovieGridView: View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(movies) { movie in
-                    NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                    NavigationLink(destination: MovieDetailView(movie: movie)) {
                         MovieGridItem(movie: movie)
                     }
                 }

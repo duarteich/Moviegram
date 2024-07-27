@@ -20,4 +20,16 @@ struct Movie: Identifiable, Codable {
     let popularity: Double
     let releaseDate: String
     let voteAverage: Double
+    
+    var isFavorite: Bool = false
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case posterPath
+        case overview
+        case popularity
+        case releaseDate
+        case voteAverage
+    }
 }

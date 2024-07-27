@@ -19,15 +19,22 @@ class MovieDetailViewModel: ObservableObject {
         self.movieRepository = movieRepository
     }
     
-    func fetchMovieDetails(movieId: Int) {
+    func fetchMovieDetails(movieId: Int) async {
         isLoading = true
-        Task {
-            do {
-                self.movieDetails = try await movieRepository.fetchMovieDetails(movieId: movieId)
-            } catch {
-                self.errorMessage = error.localizedDescription
-            }
-            self.isLoading = false
+        do {
+            self.movieDetails = try await movieRepository.fetchMovieDetails(movieId: movieId)
+        } catch {
+            self.errorMessage = error.localizedDescription
         }
+        self.isLoading = false
+    }
+    
+    func updateFavorite(with favoriteMoviesManager: FavoriteMoviesManager) {
+        guard let movieId = movieDetails?.id else { return }
+        movieDetails?.isFavorite = favoriteMoviesManager.isFavorite(movieId: movieId)
+    }
+    
+    func toggleFavorite() {
+        movieDetails?.isFavorite.toggle()
     }
 }

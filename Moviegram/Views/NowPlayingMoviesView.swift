@@ -46,9 +46,9 @@ struct NowPlayingMoviesView: View {
                 }
             }
         }
-        .onAppear {
+        .task {
             if viewModel.nowPlayingMovies.isEmpty {
-                viewModel.fetchNowPlayingMovies()
+                await viewModel.fetchNowPlayingMovies()
             }
         }
     }

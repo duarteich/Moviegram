@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class MovieListViewModel: ObservableObject {
@@ -21,27 +22,23 @@ class MovieListViewModel: ObservableObject {
         self.movieRepository = movieRepository
     }
     
-    func fetchPopularMovies() {
+    func fetchPopularMovies() async {
         isLoadingPopular = true
-        Task {
-            do {
-                self.popularMovies = try await movieRepository.fetchPopularMovies().results
-            } catch {
-                self.errorMessage = error.localizedDescription
-            }
-            self.isLoadingPopular = false
+        do {
+            self.popularMovies = try await movieRepository.fetchPopularMovies().results
+        } catch {
+            self.errorMessage = error.localizedDescription
         }
+        self.isLoadingPopular = false
     }
     
-    func fetchNowPlayingMovies() {
+    func fetchNowPlayingMovies() async {
         isLoadingNowPlaying = true
-        Task {
-            do {
-                self.nowPlayingMovies = try await movieRepository.fetchNowPlayingMovies().results
-            } catch {
-                self.errorMessage = error.localizedDescription
-            }
-            self.isLoadingNowPlaying = false
+        do {
+            self.nowPlayingMovies = try await movieRepository.fetchNowPlayingMovies().results
+        } catch {
+            self.errorMessage = error.localizedDescription
         }
+        self.isLoadingNowPlaying = false
     }
 }

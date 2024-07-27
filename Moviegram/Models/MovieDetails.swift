@@ -18,6 +18,21 @@ struct MovieDetails: Identifiable, Codable {
     let spokenLanguages: [Language]
     let voteAverage: Double
     let status: String
+    
+    var isFavorite: Bool = false
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case posterPath
+        case genres
+        case overview
+        case popularity
+        case releaseDate
+        case spokenLanguages
+        case voteAverage
+        case status
+    }
 }
 
 struct Genre: Codable {

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var favoriteMoviesManager = FavoriteMoviesManager()
+    
     var body: some View {
         TabView {
             PopularMoviesView()
@@ -18,7 +20,12 @@ struct ContentView: View {
                 .tabItem {
                     Label("Now Playing", systemImage: "play.circle.fill")
                 }
+            FavoritesView()
+                .tabItem {
+                    Label("Favorites", systemImage: "heart.fill")
+                }
         }
+        .environmentObject(favoriteMoviesManager)
     }
 }
 

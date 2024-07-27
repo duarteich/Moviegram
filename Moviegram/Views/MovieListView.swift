@@ -12,7 +12,7 @@ struct MovieListView: View {
     
     var body: some View {
         List(movies) { movie in
-            NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+            NavigationLink(destination: MovieDetailView(movie: movie)) {
                 MovieRow(movie: movie)
             }
         }
